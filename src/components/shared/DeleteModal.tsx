@@ -43,18 +43,19 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
         </DialogHeader>
         <DialogFooter className="pt-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
           <Button
-            variant="ghost"
+            variant="secondary"
             onClick={onClose}
-            className="w-full p-5 bg-gray-100 sm:w-auto text-gray-600 hover:text-gray-900 hover:bg-gray-200 cursor-pointer"
+            className="w-full sm:w-auto"
           >
             Batal
           </Button>
           <Button
-            className="w-full p-5 sm:w-auto bg-red-600 hover:bg-red-700 text-white shadow-sm cursor-pointer"
+            variant="destructive"
             onClick={() => {
               onConfirm();
               onClose();
             }}
+            className="w-full sm:w-auto"
           >
             Konfirmasi Hapus
           </Button>

@@ -82,7 +82,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             variant="ghost"
             size="sm"
             onClick={onReset}
-            className="w-full sm:w-auto justify-center text-xs text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 h-8 px-2.5 cursor-pointer sm:ml-auto"
+            className="w-full sm:w-auto text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 sm:ml-auto"
           >
             Reset Filter
           </Button>

@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { initialUsers } from "@/constants/users";
-import type { User, SubscriptionLevel } from "@/constants/users";
+import { useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { initialUsers, currentUser } from "@/constants/users";
+import type { SubscriptionLevel } from "@/constants/users";
 import { getInitials } from "@/lib/utils";
-
-// Mock "logged in" user — saat backend terhubung, gunakan user berdasarkan ID dari auth context
-const currentUser: User = initialUsers[0];
 
 // ─── Badge helpers ──────────────────────────────────────────────────────────
 
@@ -40,10 +39,9 @@ function SubscriptionBadge({ isSubscribed }: { isSubscribed: boolean }) {
 }
 
 const levelStyles: Record<SubscriptionLevel, string> = {
-  Gold: "bg-amber-50 text-amber-700 border border-amber-200",
-  Silver: "bg-slate-100 text-slate-600 border border-slate-200",
-  Bronze: "bg-orange-50 text-orange-700 border border-orange-200",
-  "-": "bg-gray-100 text-gray-400 border border-gray-200",
+  Pro: "bg-amber-100 text-amber-800 border border-amber-300",
+  Starter: "bg-slate-100 text-slate-700 border border-slate-300",
+  Gratis: "bg-gray-200 text-gray-700 border border-gray-300",
 };
 
 function LevelBadge({ level }: { level: SubscriptionLevel }) {
@@ -51,7 +49,7 @@ function LevelBadge({ level }: { level: SubscriptionLevel }) {
     <span
       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${levelStyles[level]}`}
     >
-      {level === "-" ? "—" : level}
+      {level}
     </span>
   );
 }
@@ -92,13 +90,15 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
         />
       </svg>
       {message}
-      <button
+      <Button
+        variant="ghost"
+        size="icon-xs"
         onClick={onClose}
-        className="ml-2 text-gray-400 hover:text-gray-600 transition-colors"
+        className="ml-2 text-gray-400 hover:text-gray-600"
         aria-label="Tutup notifikasi"
       >
         ✕
-      </button>
+      </Button>
     </div>
   );
 }
@@ -106,7 +106,8 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
 // ─── Profile Page ─────────────────────────────────────────────────────────────
 
 export default function ProfilePage() {
-  const user = currentUser;
+  const { id } = useParams<{ id: string }>();
+  const user = (id ? initialUsers.find((u) => u.id === id) : null) || currentUser;
   const [toast, setToast] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -164,12 +165,13 @@ export default function ProfilePage() {
 
             {/* Action buttons */}
             <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
-              <button
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => handleNotImplemented("Edit Profil")}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 <svg
-                  className="w-4 h-4"
+                  className="w-4 h-4 mr-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -182,13 +184,14 @@ export default function ProfilePage() {
                   />
                 </svg>
                 Edit Profil
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="destructive-outline"
+                size="sm"
                 onClick={() => handleNotImplemented("Keluar")}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-200 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
               >
                 <svg
-                  className="w-4 h-4"
+                  className="w-4 h-4 mr-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -201,7 +204,7 @@ export default function ProfilePage() {
                   />
                 </svg>
                 Keluar
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -283,12 +286,14 @@ export default function ProfilePage() {
               Anda.
             </p>
           </div>
-          <button
+          <Button
+            variant="destructive"
+            size="sm"
             onClick={() => handleNotImplemented("Hapus Akun")}
-            className="w-full sm:w-auto text-center justify-center shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-300 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+            className="w-full sm:w-auto shrink-0"
           >
             Hapus Akun
-          </button>
+          </Button>
         </div>
       </div>
     </div>

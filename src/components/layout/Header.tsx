@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import NotificationDrawer from "../NotificationDrawer";
 
 const IconBell = () => (
@@ -43,21 +44,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenSidebar }) => {
   const [unreadCount, setUnreadCount] = useState(3);
 
   const getPageTitle = (pathname: string) => {
-    switch (pathname) {
-      case "/":
-      case "/users":
-        return "Manajemen Pengguna";
-      case "/roles":
-        return "Manajemen Peran";
-      case "/profile":
-        return "Profil Akun";
-      case "/dashboard":
-        return "Dashboard";
-      case "/settings":
-        return "Pengaturan";
-      default:
-        return "Dashboard";
-    }
+    if (pathname === "/" || pathname === "/users") return "Manajemen Pengguna";
+    if (pathname.startsWith("/users/")) return "Detail Pengguna";
+    if (pathname === "/roles") return "Manajemen Peran";
+    if (pathname.startsWith("/profile")) return "Profil Akun";
+    if (pathname === "/dashboard") return "Dashboard";
+    if (pathname === "/settings") return "Pengaturan";
+    return "Dashboard";
   };
 
   return (
@@ -65,22 +58,27 @@ const Header: React.FC<HeaderProps> = ({ onOpenSidebar }) => {
       <header className="h-16 bg-white border-b border-gray-200 sticky top-0 z-10 flex items-center justify-between px-4 sm:px-6 md:px-8">
         <div className="flex items-center gap-3">
           {/* Hamburger Menu button - visible only on mobile/tablet (< md) */}
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={onOpenSidebar}
-            className="md:hidden p-2 -ml-1 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+            className="md:hidden -ml-1 text-gray-600 hover:text-indigo-600 hover:bg-gray-100"
             aria-label="Buka menu navigasi"
           >
             <IconMenu />
-          </button>
+          </Button>
           <h2 className="text-base sm:text-lg font-semibold text-gray-800">
             {getPageTitle(location.pathname)}
           </h2>
         </div>
         <div className="flex items-center gap-2 sm:gap-4">
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
+            pill
             onClick={() => setIsNotificationOpen(true)}
-            className="relative text-gray-500 hover:text-indigo-600 cursor-pointer p-2 hover:bg-gray-50 rounded-full transition-colors"
+            className="relative text-gray-500 hover:text-indigo-600 hover:bg-gray-50"
             aria-label="Buka notifikasi"
           >
             <IconBell />
@@ -89,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenSidebar }) => {
                 {unreadCount > 9 ? "9+" : unreadCount}
               </span>
             )}
-          </button>
+          </Button>
         </div>
       </header>
 

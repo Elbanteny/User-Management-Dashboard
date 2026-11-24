@@ -1,6 +1,6 @@
 import type { Field } from "@/components/shared/CreateModal";
 
-export type SubscriptionLevel = "Bronze" | "Silver" | "Gold" | "-";
+export type SubscriptionLevel = "Gratis" | "Starter" | "Pro";
 
 export interface User {
   id: string;
@@ -59,7 +59,7 @@ export const userFields: Field[] = [
     key: "subscriptionLevel",
     label: "Level Langganan",
     type: "select",
-    options: ["Bronze", "Silver", "Gold", "-"],
+    options: ["Gratis", "Starter", "Pro"],
   },
   {
     key: "referralCode",
@@ -130,7 +130,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-15T10:30:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Gold",
+    subscriptionLevel: "Pro",
   },
   {
     id: "2",
@@ -142,7 +142,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-14T14:20:00Z",
     isActive: true,
     isSubscribed: false,
-    subscriptionLevel: "-",
+    subscriptionLevel: "Gratis",
     referralCode: "REF-JD01",
     referredBy: "John Doe",
   },
@@ -156,7 +156,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-12T09:15:00Z",
     isActive: false,
     isSubscribed: true,
-    subscriptionLevel: "Silver",
+    subscriptionLevel: "Starter",
   },
   {
     id: "4",
@@ -168,7 +168,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-15T08:45:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Gold",
+    subscriptionLevel: "Pro",
     referralCode: "REF-JD01",
     referredBy: "John Doe",
   },
@@ -182,7 +182,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-10T16:00:00Z",
     isActive: false,
     isSubscribed: false,
-    subscriptionLevel: "-",
+    subscriptionLevel: "Gratis",
     referralCode: "REF-JS02",
     referredBy: "Jane Smith",
   },
@@ -196,7 +196,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-16T11:00:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Gold",
+    subscriptionLevel: "Pro",
   },
   {
     id: "7",
@@ -208,7 +208,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-13T13:45:00Z",
     isActive: true,
     isSubscribed: false,
-    subscriptionLevel: "-",
+    subscriptionLevel: "Gratis",
     referralCode: "REF-AB04",
     referredBy: "Alice Brown",
   },
@@ -222,7 +222,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-15T16:20:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Bronze",
+    subscriptionLevel: "Gratis",
     referralCode: "REF-DP06",
     referredBy: "Diana Prince",
   },
@@ -236,7 +236,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-08T10:10:00Z",
     isActive: false,
     isSubscribed: false,
-    subscriptionLevel: "-",
+    subscriptionLevel: "Gratis",
   },
   {
     id: "10",
@@ -248,7 +248,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-16T09:30:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Gold",
+    subscriptionLevel: "Pro",
     referralCode: "REF-JD01",
     referredBy: "John Doe",
   },
@@ -262,7 +262,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-16T14:15:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Gold",
+    subscriptionLevel: "Pro",
   },
   {
     id: "12",
@@ -274,7 +274,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-05T08:00:00Z",
     isActive: false,
     isSubscribed: false,
-    subscriptionLevel: "-",
+    subscriptionLevel: "Gratis",
     referralCode: "REF-AB04",
     referredBy: "Alice Brown",
   },
@@ -288,7 +288,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-14T17:50:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Silver",
+    subscriptionLevel: "Starter",
   },
   {
     id: "14",
@@ -300,7 +300,7 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-16T07:10:00Z",
     isActive: true,
     isSubscribed: false,
-    subscriptionLevel: "-",
+    subscriptionLevel: "Gratis",
     referralCode: "REF-IM11",
     referredBy: "Ian Malcolm",
   },
@@ -314,6 +314,9 @@ export const initialUsers: User[] = [
     lastActive: "2023-10-16T12:00:00Z",
     isActive: true,
     isSubscribed: true,
-    subscriptionLevel: "Gold",
+    subscriptionLevel: "Pro",
   },
 ];
+
+// Mock user yang sedang login saat ini (Frontend state)
+export const currentUser: User = initialUsers[0];

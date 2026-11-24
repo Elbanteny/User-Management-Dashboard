@@ -59,7 +59,9 @@ const RolesPage: React.FC = () => {
           </p>
         </div>
         <Button
-          className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 sm:py-5 rounded-xl shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shrink-0"
+          variant="default"
+          size="lg"
+          className="w-full sm:w-auto shrink-0 shadow-xs"
           onClick={() => setIsCreateModalOpen(true)}
         >
           <svg
@@ -79,7 +81,7 @@ const RolesPage: React.FC = () => {
         </Button>
       </div>
 
-      <div className="card !p-0 overflow-hidden bg-white border border-gray-200 rounded-xl shadow-xs">
+      <div className="card p-0 overflow-hidden bg-white border border-gray-200 rounded-xl shadow-xs">
         {/* Mobile View: Roles Card List (< md) */}
         <div className="block md:hidden divide-y divide-gray-100">
           {roles.length === 0 ? (
@@ -109,9 +111,8 @@ const RolesPage: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-end gap-1.5 pt-2 border-t border-gray-50">
                   <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-7 px-2.5 text-xs text-blue-600 border-blue-200 hover:bg-blue-50 cursor-pointer"
+                    variant="info-outline"
+                    size="xs"
                     onClick={() => {
                       setSelectedRole(role);
                       setIsEditModalOpen(true);
@@ -120,9 +121,8 @@ const RolesPage: React.FC = () => {
                     Edit
                   </Button>
                   <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-7 px-2.5 text-xs text-red-600 border-red-200 hover:bg-red-50 cursor-pointer"
+                    variant="destructive-outline"
+                    size="xs"
                     onClick={() => setRoleToDelete(role)}
                   >
                     Hapus
@@ -142,7 +142,7 @@ const RolesPage: React.FC = () => {
                   No
                 </TableHead>
                 <TableHead className="py-4 px-6 text-gray-500 font-semibold uppercase text-xs">
-                  Roles
+                  Peran
                 </TableHead>
                 <TableHead className="py-4 px-6 text-gray-500 font-semibold uppercase text-xs">
                   Deskripsi
@@ -173,13 +173,13 @@ const RolesPage: React.FC = () => {
                   <TableCell className="py-4 px-6 text-center">
                     <div className="inline-flex items-center justify-center gap-1">
                       <Button
-                        variant="ghost"
+                        variant="info-ghost"
                         size="icon"
-                        className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 cursor-pointer"
                         onClick={() => {
                           setSelectedRole(role);
                           setIsEditModalOpen(true);
                         }}
+                        title="Edit Peran"
                       >
                         <svg
                           className="w-4 h-4"
@@ -193,10 +193,10 @@ const RolesPage: React.FC = () => {
                         </svg>
                       </Button>
                       <Button
-                        variant="ghost"
+                        variant="destructive-ghost"
                         size="icon"
-                        className="text-red-600 hover:text-red-800 hover:bg-red-50 cursor-pointer"
                         onClick={() => setRoleToDelete(role)}
+                        title="Hapus Peran"
                       >
                         <svg
                           className="w-4 h-4"

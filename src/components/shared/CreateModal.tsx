@@ -130,16 +130,17 @@ export const CreateModal: React.FC<CreateModalProps> = ({
           <DialogFooter className="pt-3 border-t border-gray-100 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
             <Button
               type="button"
-              variant="ghost"
+              variant="secondary"
               onClick={handleClose}
-              className="w-full p-5 bg-gray-100 sm:w-auto text-gray-600 hover:text-gray-900 hover:bg-gray-200 cursor-pointer"
+              className="w-full sm:w-auto"
             >
               {cancelText}
             </Button>
             <Button
               type="submit"
-              className="w-full p-5 sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm cursor-pointer"
-              disabled={isSubmitting}
+              variant="default"
+              isLoading={isSubmitting}
+              className="w-full sm:w-auto"
             >
               {isSubmitting ? "Menyimpan..." : submitText}
             </Button>

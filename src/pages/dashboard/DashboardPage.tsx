@@ -23,7 +23,7 @@ const DashboardPage: React.FC = () => {
         <div className="card bg-white p-5 space-y-2">
           <p className="text-xs font-semibold text-gray-500 uppercase">Pelanggan Aktif</p>
           <p className="text-2xl sm:text-3xl font-bold text-blue-600">9</p>
-          <p className="text-xs text-gray-500">Gold, Silver, & Bronze</p>
+          <p className="text-xs text-gray-500">Pro, Starter, & Gratis</p>
         </div>
         <div className="card bg-white p-5 space-y-2">
           <p className="text-xs font-semibold text-gray-500 uppercase">Total Peran</p>

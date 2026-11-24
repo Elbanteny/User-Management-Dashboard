@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -21,10 +22,7 @@ import {
   type UserFormModalData,
   type SubscriptionLevel,
 } from "@/constants/users";
-import {
-  getActiveDuration,
-  getInitials,
-} from "@/lib/utils";
+import { getActiveDuration, getInitials } from "@/lib/utils";
 
 export const UsersPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>(initialUsers);
@@ -49,6 +47,8 @@ export const UsersPage: React.FC = () => {
     setTimeout(() => setToast(null), 3000);
   };
 
+  const navigate = useNavigate();
+
   const handleEdit = (user: User) => {
     setSelectedUser(user);
     setIsEditModalOpen(true);
@@ -61,10 +61,10 @@ export const UsersPage: React.FC = () => {
       isSubscribed: updatedUser.isSubscribed === "Ya",
       subscriptionLevel:
         updatedUser.isSubscribed === "Ya"
-          ? updatedUser.subscriptionLevel === "-"
-            ? "Bronze"
+          ? updatedUser.subscriptionLevel === "Gratis"
+            ? "Starter"
             : updatedUser.subscriptionLevel
-          : "-",
+          : "Gratis",
       isActive: updatedUser.status === "active",
       referralCode: rawReferral || undefined,
       referredBy: rawReferral
@@ -176,8 +176,11 @@ export const UsersPage: React.FC = () => {
       isActive: (data.status || "active") === "active",
       isSubscribed: data.isSubscribed === "Ya",
       subscriptionLevel:
-        (data.subscriptionLevel as SubscriptionLevel) ||
-        (data.isSubscribed === "Ya" ? "Bronze" : "-"),
+        data.isSubscribed === "Ya"
+          ? (data.subscriptionLevel as SubscriptionLevel) === "Gratis"
+            ? "Starter"
+            : (data.subscriptionLevel as SubscriptionLevel)
+          : "Gratis",
       referralCode: rawReferral || undefined,
       referredBy: rawReferral ? referredBy || "Pengguna Komunitas" : undefined,
     };
@@ -207,8 +210,10 @@ export const UsersPage: React.FC = () => {
           </p>
         </div>
         <Button
+          variant="default"
+          size="lg"
           onClick={() => setIsCreateModalOpen(true)}
-          className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2.5 sm:py-5 rounded-xl shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shrink-0"
+          className="w-full sm:w-auto shrink-0 shadow-xs"
         >
           <svg
             className="w-4 h-4"
@@ -227,7 +232,7 @@ export const UsersPage: React.FC = () => {
         </Button>
       </div>
 
-      <div className="card !p-0 overflow-hidden bg-white border border-gray-200 rounded-xl shadow-xs">
+      <div className="card p-0 overflow-hidden bg-white border border-gray-200 rounded-xl shadow-xs">
         <FilterBar
           searchQuery={searchQuery}
           onSearchChange={(q) => {
@@ -305,19 +310,19 @@ export const UsersPage: React.FC = () => {
                     {user.isSubscribed ? "Berlangganan" : "Non-Langganan"}
                   </span>
 
-                  {user.subscriptionLevel === "Gold" && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
-                      🏅 Gold
+                  {user.subscriptionLevel === "Pro" && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
+                      Pro
                     </span>
                   )}
-                  {user.subscriptionLevel === "Silver" && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-300">
-                      🥈 Silver
+                  {user.subscriptionLevel === "Starter" && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-300">
+                      Starter
                     </span>
                   )}
-                  {user.subscriptionLevel === "Bronze" && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-orange-50 text-orange-800 border border-orange-200">
-                      🥉 Bronze
+                  {user.subscriptionLevel === "Gratis" && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-200 text-gray-700 border border-gray-300">
+                      {user.isSubscribed ? "Starter" : "Gratis"}
                     </span>
                   )}
 
@@ -347,18 +352,16 @@ export const UsersPage: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant="info-outline"
+                      size="xs"
                       onClick={() => handleEdit(user)}
-                      className="h-7 px-2.5 text-xs text-blue-600 border-blue-200 hover:bg-blue-50 cursor-pointer"
                     >
                       Edit
                     </Button>
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant="destructive-outline"
+                      size="xs"
                       onClick={() => handleDelete(user)}
-                      className="h-7 px-2.5 text-xs text-red-600 border-red-200 hover:bg-red-50 cursor-pointer"
                     >
                       Hapus
                     </Button>
@@ -468,24 +471,20 @@ export const UsersPage: React.FC = () => {
                       </span>
                     </TableCell>
                     <TableCell className="py-4 px-6 text-xs font-medium">
-                      {user.subscriptionLevel === "Gold" && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
-                          🏅 Gold
+                      {user.subscriptionLevel === "Pro" && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
+                          Pro
                         </span>
                       )}
-                      {user.subscriptionLevel === "Silver" && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-300">
-                          🥈 Silver
+                      {user.subscriptionLevel === "Starter" && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-300">
+                          Starter
                         </span>
                       )}
-                      {user.subscriptionLevel === "Bronze" && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-50 text-orange-800 border border-orange-200">
-                          🥉 Bronze
+                      {user.subscriptionLevel === "Gratis" && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-200 text-gray-700 border border-gray-300">
+                          {user.isSubscribed ? "Starter" : "Gratis"}
                         </span>
-                      )}
-                      {(user.subscriptionLevel === "-" ||
-                        !user.subscriptionLevel) && (
-                        <span className="text-gray-400">-</span>
                       )}
                     </TableCell>
                     <TableCell className="py-4 px-6">
@@ -496,7 +495,7 @@ export const UsersPage: React.FC = () => {
                             {user.referralCode}
                           </span>
                           {user.referredBy && (
-                            <div className="text-[11px] text-gray-500 truncate max-w-[130px]">
+                            <div className="text-[11px] text-gray-500 truncate max-w-32.5">
                               oleh{" "}
                               <span className="font-medium text-gray-700">
                                 {user.referredBy}
@@ -518,8 +517,25 @@ export const UsersPage: React.FC = () => {
                         <Button
                           variant="ghost"
                           size="icon"
+                          onClick={() => navigate(`/users/${user.id}`)}
+                          className="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50"
+                          title="Lihat Detail"
+                        >
+                          <svg
+                            className="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </Button>
+                        <Button
+                          variant="info-ghost"
+                          size="icon"
                           onClick={() => handleEdit(user)}
-                          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 cursor-pointer"
                           title="Edit Pengguna"
                         >
                           <svg
@@ -534,10 +550,9 @@ export const UsersPage: React.FC = () => {
                           </svg>
                         </Button>
                         <Button
-                          variant="ghost"
+                          variant="destructive-ghost"
                           size="icon"
                           onClick={() => handleDelete(user)}
-                          className="text-red-600 hover:text-red-800 hover:bg-red-50 cursor-pointer"
                           title="Hapus Pengguna"
                         >
                           <svg

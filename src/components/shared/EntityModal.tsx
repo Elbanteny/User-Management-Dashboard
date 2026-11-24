@@ -97,18 +97,19 @@ export function EntityModal<T extends { id: string; name: string }>({
         </div>
         <DialogFooter className="pt-3 border-t border-gray-100 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
           <Button
-            variant="ghost"
+            variant="secondary"
             onClick={onClose}
-            className="w-full p-5 bg-gray-100 sm:w-auto text-gray-600 hover:text-gray-900 hover:bg-gray-200 cursor-pointer"
+            className="w-full sm:w-auto"
           >
             Batal
           </Button>
           <Button
-            className={`w-full p-5 sm:w-auto text-white shadow-sm cursor-pointer ${confirmColor === "red" ? "bg-red-600 hover:bg-red-700" : "bg-blue-600 hover:bg-blue-700"}`}
+            variant={confirmColor === "red" ? "destructive" : "default"}
             onClick={() => {
               onSave(formData);
               onClose();
             }}
+            className="w-full sm:w-auto"
           >
             {confirmText}
           </Button>

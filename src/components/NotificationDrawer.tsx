@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Bell,
   CheckCheck,
@@ -32,7 +33,7 @@ const initialNotifications: NotificationItem[] = [
   {
     id: "notif-2",
     title: "Upgrade Langganan",
-    message: "Dewi Lestari telah meningkatkan paket langganan ke Gold 🏅.",
+    message: "Dewi Lestari telah meningkatkan paket langganan ke Pro.",
     time: "1 jam yang lalu",
     type: "subscription",
     isRead: false,
@@ -56,7 +57,7 @@ const initialNotifications: NotificationItem[] = [
   {
     id: "notif-5",
     title: "Pengguna Berlangganan Baru",
-    message: "Rian Hidayat memulai langganan paket Bronze 🥉.",
+    message: "Rian Hidayat memulai langganan paket Gratis.",
     time: "2 hari yang lalu",
     type: "subscription",
     isRead: true,
@@ -178,49 +179,48 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({
               </p>
             </div>
           </div>
-          <button
+          <Button
+            variant="ghost"
+            size="icon-sm"
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
             aria-label="Tutup notifikasi"
           >
             <X className="w-5 h-5" />
-          </button>
+          </Button>
         </div>
 
         {/* Filter Pills & Actions */}
         <div className="px-4 py-2.5 bg-gray-50/70 border-b border-gray-100 flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5">
-            <button
+            <Button
+              size="xs"
+              pill
+              variant={filter === "all" ? "default" : "outline"}
               onClick={() => setFilter("all")}
-              className={`px-3 py-1 rounded-full font-medium transition-colors cursor-pointer ${
-                filter === "all"
-                  ? "bg-indigo-600 text-white shadow-xs"
-                  : "bg-white text-gray-600 hover:bg-gray-200 border border-gray-200"
-              }`}
             >
               Semua ({notifications.length})
-            </button>
-            <button
+            </Button>
+            <Button
+              size="xs"
+              pill
+              variant={filter === "unread" ? "default" : "outline"}
               onClick={() => setFilter("unread")}
-              className={`px-3 py-1 rounded-full font-medium transition-colors cursor-pointer ${
-                filter === "unread"
-                  ? "bg-indigo-600 text-white shadow-xs"
-                  : "bg-white text-gray-600 hover:bg-gray-200 border border-gray-200"
-              }`}
             >
               Belum Dibaca ({unreadCount})
-            </button>
+            </Button>
           </div>
 
           {unreadCount > 0 && (
-            <button
+            <Button
+              variant="ghost"
+              size="xs"
               onClick={markAllAsRead}
-              className="text-xs font-medium text-indigo-600 hover:text-indigo-800 hover:underline flex items-center gap-1 cursor-pointer"
+              className="text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50"
               title="Tandai semua telah dibaca"
             >
-              <CheckCheck className="w-3.5 h-3.5" />
+              <CheckCheck className="w-3.5 h-3.5 mr-1" />
               <span>Baca semua</span>
-            </button>
+            </Button>
           )}
         </div>
 
@@ -268,13 +268,15 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({
                           title="Belum dibaca"
                         />
                       )}
-                      <button
+                      <Button
+                        variant="ghost"
+                        size="icon-xs"
                         onClick={(e) => deleteNotification(item.id, e)}
-                        className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-600 hover:bg-gray-100 rounded transition-all cursor-pointer"
+                        className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-600 hover:bg-red-50"
                         title="Hapus notifikasi"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      </Button>
                     </div>
                   </div>
                   <p className="text-xs text-gray-600 mt-0.5 line-clamp-2 leading-relaxed">
@@ -294,13 +296,15 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({
         {notifications.length > 0 && (
           <div className="p-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
             <span>{notifications.length} notifikasi tersimpan</span>
-            <button
+            <Button
+              variant="ghost"
+              size="xs"
               onClick={clearAllNotifications}
-              className="text-red-600 hover:text-red-700 hover:underline flex items-center gap-1 cursor-pointer"
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <Trash2 className="w-3.5 h-3.5 mr-1" />
               <span>Hapus Semua</span>
-            </button>
+            </Button>
           </div>
         )}
       </aside>
