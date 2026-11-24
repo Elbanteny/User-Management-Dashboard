@@ -6,7 +6,7 @@ export default function AuthLayout() {
     <div className="min-h-screen bg-white flex flex-col lg:grid lg:grid-cols-2">
       {/* Left Column: Visual Showcase (Hidden on small screens, primary brand color) */}
       <div className="hidden lg:flex p-3 xl:p-4 h-screen sticky top-0">
-        <div className="w-full h-full bg-liner-to-br from-indigo-600 via-indigo-600 to-indigo-700 rounded-[28px] p-8 xl:p-10 flex flex-col justify-between relative overflow-hidden text-white shadow-xl shadow-indigo-600/10">
+        <div className="w-full h-full bg-linear-to-br from-indigo-600 via-indigo-600 to-indigo-700 rounded-[28px] p-8 xl:p-10 flex flex-col justify-between relative overflow-hidden text-white shadow-xl shadow-indigo-600/10">
           {/* Subtle Ambient Background Lighting */}
           <div className="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl pointer-events-none" />
